@@ -600,6 +600,28 @@ button:focus {
   margin-bottom: 1rem;
 }
 
+.project-sort-control {
+  align-items: center;
+  color: white;
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.project-sort-control select {
+  background: rgba(10, 20, 50, 0.8);
+  border: 1px solid rgba(0, 240, 255, 0.55);
+  border-radius: 0.5rem;
+  color: white;
+  padding: 0.45rem 0.7rem;
+}
+
+.project-sort-control select:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 3px;
+}
+
 .project-filter-buttons {
   display: flex;
   flex-wrap: wrap;

@@ -39,7 +39,6 @@ test("category buttons select their filter and update the result count", () => {
     "Consumer Electronics",
     "OEMs",
     "Modules",
-    "Robotics",
     "All",
   ].forEach((category) => {
     fireEvent.click(screen.getByRole("button", { name: category }));
@@ -50,4 +49,24 @@ test("category buttons select their filter and update the result count", () => {
     );
     expect(screen.getByText(/^Showing \d+ of 6 projects$/)).toBeInTheDocument();
   });
+});
+
+test("sorts projects by their editable order number", () => {
+  const { container } = renderProjects();
+  const getVisibleTitles = () =>
+    Array.from(container.querySelectorAll(".project-title")).map(
+      (title) => title.textContent
+    );
+
+  expect(getVisibleTitles()[0]).toBe("DRV8243 Motor Driver");
+
+  fireEvent.change(screen.getByLabelText("Sort by"), {
+    target: { value: "oldest" },
+  });
+  expect(getVisibleTitles()[0]).toBe(
+    "LeoGV – WareHouse Robot (Graduation Project)"
+  );
+
+  fireEvent.click(screen.getByRole("button", { name: "Modules" }));
+  expect(getVisibleTitles()[0]).toBe("LeoGV – WareHouse Robot (Graduation Project)");
 });

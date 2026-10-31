@@ -23,6 +23,7 @@ const categories = [
 
 const projects = [
   {
+    order: 1,
     path: "/project/LeoGV",
     imgPath: [LeoFront, LeoBack],
     title: "LeoGV – WareHouse Robot (Graduation Project)",
@@ -32,6 +33,7 @@ const projects = [
     featured: true,
   },
   {
+    order: 2,
     path: "/project/SupercapacitorsBackupController",
     imgPath: SupercapacitorsBackupControllerimg,
     title: "Supercapacitors Backup Controller",
@@ -40,6 +42,7 @@ const projects = [
     categories: ["Power", "OEMs"],
   },
   {
+    order: 3,
     path: "/project/Octopus",
     imgPath: Octopus,
     title: "Project Octopus",
@@ -48,6 +51,7 @@ const projects = [
     categories: ["Power", "Modules"],
   },
   {
+    order: 4,
     path: "/project/ICM20948",
     imgPath: ICM20948img,
     title: "ICM-20948 Breakout Board",
@@ -56,6 +60,7 @@ const projects = [
     categories: ["IoT", "Modules"],
   },
   {
+    order: 5,
     path: "/project/DRV8701",
     imgPath: DRV8701img,
     title: "DRV8701 Motor Driver",
@@ -64,6 +69,7 @@ const projects = [
     categories: ["Power", "OEMs", "Modules"],
   },
   {
+    order: 6,
     path: "/project/DRV8243",
     imgPath: DRV8243,
     title: "DRV8243 Motor Driver",
@@ -75,10 +81,14 @@ const projects = [
 
 function Projects() {
   const [activeCategory, setActiveCategory] = useState("All");
-  const visibleProjects =
+  const [sortOrder, setSortOrder] = useState("newest");
+  const filteredProjects =
     activeCategory === "All"
       ? projects
       : projects.filter((project) => project.categories.includes(activeCategory));
+  const visibleProjects = [...filteredProjects].sort((a, b) =>
+    sortOrder === "newest" ? b.order - a.order : a.order - b.order
+  );
 
   return (
     <Container fluid className="project-section">
@@ -92,6 +102,17 @@ function Projects() {
         </p>
         <section className="project-filters" aria-label="Filter projects">
           <h2 className="project-filter-heading">Browse by category</h2>
+          <div className="project-sort-control">
+            <label htmlFor="project-sort">Sort by</label>
+            <select
+              id="project-sort"
+              value={sortOrder}
+              onChange={(event) => setSortOrder(event.target.value)}
+            >
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+            </select>
+          </div>
           <div className="project-filter-buttons" role="group" aria-label="Project categories">
             {categories.map((category) => (
               <button
