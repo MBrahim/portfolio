@@ -1,18 +1,85 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import ProjectCard from "./ProjectCards";
 import Particle from "../Particle";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import ICM20948img from "../../Assets/Projects/ICM-20948/Photo.png";
 import DRV8701img from "../../Assets/Projects/DRV8701/Photo.png";
 import SupercapacitorsBackupControllerimg from "../../Assets/Projects/SupCap/Sup.png";
-import DRV8243 from "../../Assets/Projects/DRV8243/DRV8243.png"
-import Octopus from "../../Assets/Projects/Octopus/Octopus.png"
-import LeoFront from "../../Assets/Projects/LeoGV/Front.png"
-import LeoBack from "../../Assets/Projects/LeoGV/Back.png"
+import DRV8243 from "../../Assets/Projects/DRV8243/DRV8243.png";
+import Octopus from "../../Assets/Projects/Octopus/Octopus.png";
+import LeoFront from "../../Assets/Projects/LeoGV/Front.png";
+import LeoBack from "../../Assets/Projects/LeoGV/Back.png";
 
+const categories = [
+  "All",
+  "IoT",
+  "High-Speed",
+  "Power",
+  "Consumer Electronics",
+  "OEMs",
+  "Modules",
+];
+
+const projects = [
+  {
+    path: "/project/LeoGV",
+    imgPath: [LeoFront, LeoBack],
+    title: "LeoGV – WareHouse Robot (Graduation Project)",
+    description:
+      "LeoGV is an autonomous mobile warehouse robot with differential drive powered by two BLDC hub motors controlled via custom ESC (based on Odrive). It uses STM32G4 microcontroller with embedded C drivers, Raspberry Pi 4 as the main brain running ROS2 for abstraction, and features wireless WiFi control via PyQt5 GUI. The robot includes a lifting mechanism with four stepper motors, USB Lidar and camera for environment awareness, all built with custom-designed PCBs including USB Hub and USB-to-CAN controller.",
+    categories: ["IoT", "Modules"],
+    featured: true,
+  },
+  {
+    path: "/project/SupercapacitorsBackupController",
+    imgPath: SupercapacitorsBackupControllerimg,
+    title: "Supercapacitors Backup Controller",
+    description:
+      "A high-reliability energy backup controller designed to manage supercapacitor-based power systems, ensuring uninterrupted supply during main power loss while providing controlled charging, voltage balancing, and system protection for embedded and industrial applications.",
+    categories: ["Power", "OEMs"],
+  },
+  {
+    path: "/project/Octopus",
+    imgPath: Octopus,
+    title: "Project Octopus",
+    description:
+      "A multi-functional embedded control system integrating centralized processing, distributed communication, power regulation, and multi-channel actuator control to support complex robotics and automation applications.",
+    categories: ["Power", "Modules"],
+  },
+  {
+    path: "/project/ICM20948",
+    imgPath: ICM20948img,
+    title: "ICM-20948 Breakout Board",
+    description:
+      "A breakout board for the ICM-20948 9-axis motion sensor (gyro, acc., mag.) featuring I²C interfacing, selectable addresses via solder jumper, and wide 1.8V-5V power compatibility for easy integration with various microcontrollers and SBCs.",
+    categories: ["IoT", "Modules"],
+  },
+  {
+    path: "/project/DRV8701",
+    imgPath: DRV8701img,
+    title: "DRV8701 Motor Driver",
+    description:
+      "A high-power brushed DC motor driver based on Texas Instruments DRV8701, implemented as a full H-Bridge using four external High Power N-channel MOSFETs, supporting high voltage operation and precise current control for industrial and automotive motor applications.",
+    categories: ["Power", "OEMs", "Modules"],
+  },
+  {
+    path: "/project/DRV8243",
+    imgPath: DRV8243,
+    title: "DRV8243 Motor Driver",
+    description:
+      "Automotive-grade 40V, 12A H-Bridge motor driver based on Texas Instruments DRV8243HQRXYRQ1, with integrated current sensing, protection features, and configurable control modes for robust motor control applications.",
+    categories: ["Power", "OEMs", "Modules"],
+  },
+];
 
 function Projects() {
+  const [activeCategory, setActiveCategory] = useState("All");
+  const visibleProjects =
+    activeCategory === "All"
+      ? projects
+      : projects.filter((project) => project.categories.includes(activeCategory));
+
   return (
     <Container fluid className="project-section">
       <Particle />
@@ -23,83 +90,55 @@ function Projects() {
         <p style={{ color: "white" }}>
           Here are a few projects I've worked on recently.
         </p>
-        <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
-          
-          <Col xs={12} className="project-card" style={{ width: "100%", maxWidth: "100%" }}>
-            <Link to="/project/LeoGV" style={{ textDecoration: "none", color: "inherit", display: "block" }}>
-              <ProjectCard
-                imgPath={[LeoFront, LeoBack]}
-                isBlog={false}
-                title="LeoGV – WareHouse Robot (Graduation Project)"
-                width="100%"
-                description="LeoGV is an autonomous mobile warehouse robot with differential drive powered by two BLDC hub motors controlled via custom ESC (based on Odrive). It uses STM32G4 microcontroller with embedded C drivers, Raspberry Pi 4 as the main brain running ROS2 for abstraction, and features wireless WiFi control via PyQt5 GUI. The robot includes a lifting mechanism with four stepper motors, USB Lidar and camera for environment awareness, all built with custom-designed PCBs including USB Hub and USB-to-CAN controller."
-              />
-            </Link>
-          </Col>
-
-          <Col md={4} className="project-card">
-            <Link to="/project/SupercapacitorsBackupController" style={{ textDecoration: "none", color: "inherit" }}>
-              <ProjectCard
-                imgPath={SupercapacitorsBackupControllerimg}
-                isBlog={false}
-                title="Supercapacitors Backup Controller"
-                width="100%"
-                description="A high-reliability energy backup controller designed to manage supercapacitor-based power systems, ensuring uninterrupted supply during main power loss while providing controlled charging, voltage balancing, and system protection for embedded and industrial applications."
-              />
-            </Link>
-          </Col>
-
-          <Col md={4} className="project-card">
-            <Link to="/project/Octopus" style={{ textDecoration: "none", color: "inherit" }}>
-              <ProjectCard
-                imgPath={Octopus}
-                isBlog={false}
-                title="Project Octopus"
-                width="100%"
-                description="A multi-functional embedded control system integrating centralized processing, distributed communication, power regulation, and multi-channel actuator control to support complex robotics and automation applications."
-              />
-            </Link>
-          </Col>
-
-          <Col md={4} className="project-card">
-            <Link to="/project/ICM20948" style={{ textDecoration: "none", color: "inherit" }}>
-              <ProjectCard
-                imgPath={ICM20948img}
-                isBlog={false}
-                title="ICM-20948 Breakout Board"
-                width="100%"
-                description="A breakout board for the ICM-20948 9-axis motion sensor (gyro, acc., mag.) featuring I²C interfacing, selectable addresses via solder jumper, and wide 1.8V-5V power compatibility for easy integration with various microcontrollers and SBCs."
-              />  
-            </Link>
-          </Col>  
-
-          <Col md={4} className="project-card">
-            <Link to="/project/DRV8701" style={{ textDecoration: "none", color: "inherit" }}>
-              <ProjectCard
-                imgPath={DRV8701img}
-                isBlog={false}
-                title="DRV8701 Motor Driver"
-                width="100%"
-                description="A high-power brushed DC motor driver based on Texas Instruments DRV8701, implemented as a full H-Bridge using four external High Power N-channel MOSFETs, supporting high voltage operation and precise current control for industrial and automotive motor applications."
-              />  
-            </Link>
-          </Col>
-       
-          <Col md={4} className="project-card">
-            <Link to="/project/DRV8243" style={{ textDecoration: "none", color: "inherit" }}>
-              <ProjectCard
-                imgPath={DRV8243}
-                isBlog={false}
-                title="DRV8243 Motor Driver"
-                width="100%"
-                description="Automotive-grade 40V, 12A H-Bridge motor driver based on Texas Instruments DRV8243HQRXYRQ1, with integrated current sensing, protection features, and configurable control modes for robust motor control applications."
-              />
-            </Link>
-          </Col>
-
-          
-
-        </Row>
+        <section className="project-filters" aria-label="Filter projects">
+          <h2 className="project-filter-heading">Browse by category</h2>
+          <div className="project-filter-buttons" role="group" aria-label="Project categories">
+            {categories.map((category) => (
+              <button
+                key={category}
+                type="button"
+                className={`project-filter-button${activeCategory === category ? " active" : ""}`}
+                aria-pressed={activeCategory === category}
+                onClick={() => setActiveCategory(category)}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+          <p className="project-filter-count" aria-live="polite">
+            Showing {visibleProjects.length} of {projects.length} projects
+          </p>
+        </section>
+        {visibleProjects.length > 0 ? (
+          <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
+            {visibleProjects.map((project) => (
+              <Col
+                key={project.path}
+                xs={12}
+                md={project.featured ? 12 : 4}
+                className="project-card"
+              >
+                <Link
+                  to={project.path}
+                  className="project-card-link"
+                >
+                  <ProjectCard
+                    imgPath={project.imgPath}
+                    isBlog={false}
+                    title={project.title}
+                    width="100%"
+                    description={project.description}
+                    categories={project.categories}
+                  />
+                </Link>
+              </Col>
+            ))}
+          </Row>
+        ) : (
+          <p className="project-filter-empty" role="status">
+            No projects are listed in this category yet.
+          </p>
+        )}
       </Container>
     </Container>
   );

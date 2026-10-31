@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import { CgWebsite } from "react-icons/cg";
 import { BsGithub } from "react-icons/bs";
 
-function ProjectCards({ imgPath, title, description, ghLink, isBlog, demoLink, width }) {
+function ProjectCards({ imgPath, title, description, ghLink, isBlog, demoLink, width, categories = [] }) {
   const renderImages = () => {
     if (Array.isArray(imgPath)) {
       return imgPath.map((src, index) => (
@@ -27,6 +27,15 @@ function ProjectCards({ imgPath, title, description, ghLink, isBlog, demoLink, w
       </div>
       <Card.Body>
         <Card.Title className="project-title">{title}</Card.Title>
+        {categories.length > 0 && (
+          <div className="project-card-categories" aria-label="Project categories">
+            {categories.map((category) => (
+              <span className="project-category-tag" key={category}>
+                {category}
+              </span>
+            ))}
+          </div>
+        )}
         <Card.Text style={{ textAlign: "justify" }}>
           {description}
         </Card.Text>
