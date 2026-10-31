@@ -19,6 +19,7 @@ const categories = [
   "Consumer Electronics",
   "OEMs",
   "Modules",
+  "Robotics",
 ];
 
 const projects = [
@@ -29,7 +30,7 @@ const projects = [
     title: "LeoGV – WareHouse Robot (Graduation Project)",
     description:
       "LeoGV is an autonomous mobile warehouse robot with differential drive powered by two BLDC hub motors controlled via custom ESC (based on Odrive). It uses STM32G4 microcontroller with embedded C drivers, Raspberry Pi 4 as the main brain running ROS2 for abstraction, and features wireless WiFi control via PyQt5 GUI. The robot includes a lifting mechanism with four stepper motors, USB Lidar and camera for environment awareness, all built with custom-designed PCBs including USB Hub and USB-to-CAN controller.",
-    categories: ["IoT", "Modules"],
+    categories: ["Robotics", "Power"],
     featured: true,
   },
   {
@@ -48,7 +49,7 @@ const projects = [
     title: "Project Octopus",
     description:
       "A multi-functional embedded control system integrating centralized processing, distributed communication, power regulation, and multi-channel actuator control to support complex robotics and automation applications.",
-    categories: ["Power", "Modules"],
+    categories: ["High-Speed", "Consumer Electronics"],
   },
   {
     order: 4,
