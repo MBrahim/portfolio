@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Particle from "../Particle";
 import { fetchAndParseMarkdown } from "./markdownParser";
 import { Container, Row } from "react-bootstrap";
-import ModelViewer from "../ModelViewer";
 function LeoGVSenna() {
     const [content, setContent] = useState([]);
 

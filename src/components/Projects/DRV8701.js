@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import Particle from "../Particle";
 import { fetchAndParseMarkdown } from "./markdownParser";
-import ModelViewer from "../ModelViewer";
 
 function DRV8701() {
     const [content, setContent] = useState([]);
@@ -26,9 +25,6 @@ function DRV8701() {
                     <h1 style={{ margin: 0, padding: 0 }}>
                         <strong className="main-name">DRV8701</strong>
                     </h1>
-                    <h3 style={{ margin: 0, padding: 0 }}>
-                        <strong style={{ color: 'white', textDecoration: 'underline' }}>3D Model</strong>
-                    </h3>
                 </div>
                 <div className="markdown-content">
                 {content}
@@ -39,4 +35,3 @@ function DRV8701() {
 }
 
 export default DRV8701;
-

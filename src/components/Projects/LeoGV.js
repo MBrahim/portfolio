@@ -4,13 +4,11 @@ import { fetchAndParseMarkdown } from "./markdownParser";
 import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ProjectCard from "./ProjectCards";
-import Pre from "../../Assets/pre.svg";
 import Senna from "../../Assets/Projects/LeoGV/Senna/Senna.png"
 import Cannon from "../../Assets/Projects/LeoGV/Cannon/Cannon.png"
 
 function LeoGV() {
     const [sennaContent, setSennaContent] = useState([]);
-    const [drv8818Content, setDrv8818Content] = useState([]);
 
     useEffect(() => {
         fetchAndParseMarkdown(
@@ -20,14 +18,6 @@ function LeoGV() {
                 paragraph: { color: 'white', textAlign: 'left' },
             },
             setSennaContent
-        );
-        fetchAndParseMarkdown(
-            'https://raw.githubusercontent.com/MBrahim/Portfolio/main/src/Assets/Projects/LeoGV/DRV8818/Readme.md',
-            {
-                header: { color: '#00FFFF', textAlign: 'left' },
-                paragraph: { color: 'white', textAlign: 'left' },
-            },
-            setDrv8818Content
         );
     }, []);
 

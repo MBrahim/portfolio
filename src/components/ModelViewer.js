@@ -1,9 +1,9 @@
 import React, { Suspense, useRef, useState, useEffect } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 
-function Model({ url, isAutoRotating, onModelLoad }) {
+function Model({ url, onModelLoad }) {
   const { scene } = useGLTF(url);
   const modelRef = useRef();
   const initializedRef = useRef(false);
@@ -30,13 +30,6 @@ function Model({ url, isAutoRotating, onModelLoad }) {
     }
   }, [scene, onModelLoad]);
   
-  // Auto-rotate the model based on state
-  useFrame(() => {
-    if (modelRef.current && isAutoRotating) {
-      modelRef.current.rotation.y += 0.00;
-    }
-  });
-  
   return <primitive ref={modelRef} object={scene} />;
 }
 
@@ -62,16 +55,11 @@ function CameraControls({ onControlsReady }) {
 }
 
 function ModelViewer({ modelUrl }) {
-  const [isAutoRotating, setIsAutoRotating] = useState(true);
   const [controls, setControls] = useState(null);
   
   // Use state for zoom distance (was const before)
   const [zoomDistance, setZoomDistance] = useState(5);
   const [modelSize, setModelSize] = useState(5);
-  
-  const toggleAutoRotate = () => {
-    setIsAutoRotating(!isAutoRotating);
-  };
   
   const handleModelLoad = (size) => {
     // Adjust zoom based on model size
@@ -262,11 +250,7 @@ function ModelViewer({ modelUrl }) {
         <ambientLight intensity={0.1} />
         <directionalLight position={[10, 10, 5]} intensity={1} />
         <Suspense fallback={null}>
-          <Model 
-            url={modelUrl} 
-            isAutoRotating={isAutoRotating} 
-            onModelLoad={handleModelLoad}
-          />
+          <Model url={modelUrl} onModelLoad={handleModelLoad} />
         </Suspense>
         <CameraControls onControlsReady={setControls} />
       </Canvas>

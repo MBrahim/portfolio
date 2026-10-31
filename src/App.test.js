@@ -1,8 +1,9 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react";
+import Home from "./components/Home/Home";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+jest.mock("react-tsparticles", () => () => null);
+
+test("renders the portfolio home page", () => {
+  render(<Home />);
+  expect(screen.getByRole("heading", { name: /hi there/i })).toBeInTheDocument();
 });

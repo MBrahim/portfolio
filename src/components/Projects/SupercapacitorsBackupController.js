@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Particle from "../Particle";
 import { fetchAndParseMarkdown } from "./markdownParser";
 import ModelViewer from "../ModelViewer";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { FaFilePdf } from "react-icons/fa6";
 

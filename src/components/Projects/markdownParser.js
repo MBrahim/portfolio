@@ -52,7 +52,7 @@ export const parseMarkdown = (text, styles = {}) => {
             let earliestIndex = -1;
 
             // Find the earliest match
-            patterns.forEach(pattern => {
+            for (const pattern of patterns) {
                 pattern.regex.lastIndex = 0;
                 const match = pattern.regex.exec(remaining);
                 if (match && (earliestIndex === -1 || match.index < earliestIndex)) {
@@ -60,7 +60,7 @@ export const parseMarkdown = (text, styles = {}) => {
                     earliestMatch = match;
                     earliestPattern = pattern;
                 }
-            });
+            }
 
             if (earliestMatch && earliestIndex > -1) {
                 // Add text before the match
@@ -107,6 +107,8 @@ export const parseMarkdown = (text, styles = {}) => {
                                 {processed.text}
                             </a>
                         );
+                        break;
+                    default:
                         break;
                 }
 
@@ -208,7 +210,7 @@ export const parseMarkdown = (text, styles = {}) => {
         }
 
         // Check for list items
-        const listMatch = trimmedLine.match(/^([\*\-\+]|\d+\.)\s+(.+)$/);
+        const listMatch = trimmedLine.match(/^([*+-]|\d+\.)\s+(.+)$/);
         if (listMatch) {
             const marker = listMatch[1];
             const content = listMatch[2];
@@ -257,7 +259,7 @@ export const parseMarkdown = (text, styles = {}) => {
         }
 
         // Check for horizontal rules
-        if (trimmedLine.match(/^[\-\*\_]{3,}$/)) {
+        if (trimmedLine.match(/^[-*_]{3,}$/)) {
             if (inList) {
                 elements.push(
                     listType === 'ol' ? 
