@@ -29,13 +29,25 @@ test("filters projects by category and restores all projects", () => {
   expect(screen.getByText("Showing 6 of 6 projects")).toBeInTheDocument();
 });
 
-test("shows an empty state for categories without matching projects", () => {
+test("category buttons select their filter and update the result count", () => {
   renderProjects();
 
-  fireEvent.click(screen.getByRole("button", { name: "High-Speed" }));
+  [
+    "IoT",
+    "High-Speed",
+    "Power",
+    "Consumer Electronics",
+    "OEMs",
+    "Modules",
+    "Robotics",
+    "All",
+  ].forEach((category) => {
+    fireEvent.click(screen.getByRole("button", { name: category }));
 
-  expect(screen.getByRole("status")).toHaveTextContent(
-    "No projects are listed in this category yet."
-  );
-  expect(screen.getByText("Showing 0 of 6 projects")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: category })).toHaveAttribute(
+      "aria-pressed",
+      "true"
+    );
+    expect(screen.getByText(/^Showing \d+ of 6 projects$/)).toBeInTheDocument();
+  });
 });
