@@ -4,6 +4,7 @@ Notable project changes and revisions are recorded here, newest first.
 
 ## 2026-11-01
 
+- Highlighted the active navbar destination, including when viewing a project detail page.
 - Added newest/oldest project sorting driven by editable numeric order values.
 - Fixed category buttons being blocked by the full-screen particles layer.
 - Added category filters and project tags for IoT, High-Speed, Power, Consumer Electronics, OEMs, and Modules.

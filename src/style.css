@@ -170,6 +170,14 @@ button:focus {
   padding-left: 1rem !important;
 }
 
+.navbar-nav .nav-link.active {
+  color: #00f0ff !important;
+}
+
+.navbar-nav .nav-link.active::after {
+  width: 100%;
+}
+
 .nav-link {
   padding: 0.8rem 1rem !important;
 }
